@@ -1,0 +1,1 @@
+<img class="object-contain h-full w-full" src="https://optimise2.assets-servd.host/deranged-cormorant/production/Home_CB-Hub.png?w=1920&h=1080&auto=compress%2Cformat&fit=crop&dm=1700127792&s=40f222681309bed2b92ed85ff04cc14f" alt="">
