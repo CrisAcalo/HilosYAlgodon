@@ -15,7 +15,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon='bi bi-backpack2'>
+                    <x-nav-link :href="route('materiales.index')" :active="request()->routeIs('materiales.index')" icon='bi bi-backpack2'>
                         Materiales
                     </x-nav-link>
                 </ul>
