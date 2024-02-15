@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/validations.js'])
 </head>
 
 <body class="font-sans antialiased">
@@ -37,6 +37,19 @@
         </div>
 
     </div>
+    <script>
+        function validarAlfabeticos(inputElement) {
+            const valor = inputElement.value;
+
+            // Permitir borrar y teclas de flechas
+            if (/^[a-zA-Z\b]+$/.test(valor)) {
+                inputElement.classList.remove("is-invalid");
+            } else {
+                inputElement.value = valor.replace(/[^a-zA-Z]/g, ""); // Eliminar caracteres no alfabéticos
+                inputElement.classList.add("is-invalid");
+            }
+        }
+    </script>
 </body>
 
 </html>
