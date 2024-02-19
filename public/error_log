@@ -1,0 +1,6 @@
+[19-Feb-2021 15:08:32 UTC] PHP Warning:  require(/home4/coacufsl/public_html/../vendor/autoload.php): failed to open stream: No such file or directory in /home4/coacufsl/public_html/index.php on line 24
+[19-Feb-2021 15:08:32 UTC] PHP Warning:  require(/home4/coacufsl/public_html/../vendor/autoload.php): failed to open stream: No such file or directory in /home4/coacufsl/public_html/index.php on line 24
+[19-Feb-2021 15:08:32 UTC] PHP Fatal error:  require(): Failed opening required '/home4/coacufsl/public_html/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home4/coacufsl/public_html/index.php on line 24
+[19-Feb-2021 15:08:37 UTC] PHP Warning:  require(/home4/coacufsl/public_html/../vendor/autoload.php): failed to open stream: No such file or directory in /home4/coacufsl/public_html/index.php on line 24
+[19-Feb-2021 15:08:37 UTC] PHP Warning:  require(/home4/coacufsl/public_html/../vendor/autoload.php): failed to open stream: No such file or directory in /home4/coacufsl/public_html/index.php on line 24
+[19-Feb-2021 15:08:37 UTC] PHP Fatal error:  require(): Failed opening required '/home4/coacufsl/public_html/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home4/coacufsl/public_html/index.php on line 24

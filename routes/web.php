@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\MaterialesController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,29 +9,50 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//ADMINISTRADOR
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Auth::routes();
+//Auth::routes(['register' => false]);
+//Auth::routes(['verify' => true]);
 
-Route::namespace('Materiales')->prefix('materiales')->middleware('auth')->name('materiales.')->group(
+Route::get('/', 'HomeController@index')->name('home');
+
+
+Route::namespace('Admin')->prefix('admin')->middleware(
+    'auth'
+    // ,'verified'
+)->name('admin.')->group(
     function () {
-        Route::get('/', [MaterialesController::class,'index'])->name('index');
+        Route::get('/', 'adminController@administrador')->name('principal');
+        Route::resource('/users', 'adminController');
+        Route::put('/users/updateRoles/{id}', 'adminController@updateUserRoles')->name('updateUserRoles');
+        Route::impersonate();
+
+        Route::namespace('Materiales')->prefix('materiales')->name('materiales.')->group(function () {
+            Route::get('/', 'MaterialesController@index');
+            Route::post('/create', 'MaterialesController@create')->name('create');
+            Route::put('/edit/{id}', 'MaterialesController@edit')->name('edit');
+            Route::delete('/destroy/{id}', 'MaterialesController@destroy')->name('destroy');
+        });
+
+        Route::prefix('roles')->name('roles.')->group(function () {
+            Route::get('/', 'RolesController@roles')->name('roles');
+            Route::post('/newRole', 'RolesController@newRole')->name('newRole');
+            Route::put('/deleteRole/{id}', 'RolesController@deleteRole')->name('deleteRole');
+
+            Route::prefix('role')->name('role.')->group(function () {
+                Route::get('/{requirement}', 'RolesController@showRole')->name('show');
+                Route::put('/updateRole/{id}', 'RolesController@updateRole')->name('updateRole');
+            });
+        });
     }
 );
+Auth::routes();
 
-require __DIR__.'/auth.php';
+Route::get('/home', 'HomeController@index')->name('home');
