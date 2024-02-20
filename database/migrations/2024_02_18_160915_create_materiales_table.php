@@ -17,7 +17,9 @@ class CreateMaterialesTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('ud_medida');
-            $table->double('costo_ud_medida',8,2);
+            $table->double('cantidad',8,2);
+            $table->double('costo_total',8,2);
+            $table->double('costo_ud_medida',8,2)->default('0')->nullable();
             $table->timestamps();
         });
     }

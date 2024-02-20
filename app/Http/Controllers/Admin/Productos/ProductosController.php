@@ -57,10 +57,10 @@ class ProductosController extends Controller
         if ($newMateriales && $productID) {
             try {
                 $productID = decrypt($productID);
-                $materialesToAssign = $newMateriales->except(['_token', '_method']);
+                $materialesToAssign = $newMateriales->except(['_token', '_method','asignarMateriales_length']);
                 $nuevosMaterialesIds = [];
                 $idsMaterialesAsignados = MaterialesPorProducto::where('producto_id', $productID)->pluck('material_id')->toArray();
-
+                
                 foreach ($materialesToAssign as $checkbox => $value) {
                     $parts = explode('_', $value);
                     $materialId = $parts[1];
