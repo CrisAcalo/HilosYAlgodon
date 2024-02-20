@@ -22,7 +22,8 @@ class MaterialesController extends Controller
         $validatedData = $newMaterialData->validate([
             'nombre' => 'required|unique:materiales|max:255',
             'ud_medida' => 'required',
-            'costo_por_ud_medida' => 'required|numeric'
+            'cantidad' => 'required|numeric|min:1',
+            'costo_total' => 'required|numeric'
         ]);
 
         $newMaterial = new Materiales();
@@ -30,7 +31,9 @@ class MaterialesController extends Controller
 
             $newMaterial->nombre = $newMaterialData->nombre;
             $newMaterial->ud_medida = $newMaterialData->ud_medida;
-            $newMaterial->costo_ud_medida = $newMaterialData->costo_por_ud_medida;
+            $newMaterial->cantidad = $newMaterialData->cantidad;
+            $newMaterial->costo_total = $newMaterialData->costo_total;
+            $newMaterial->costo_ud_medida = $newMaterialData->costo_total / $newMaterialData->cantidad;
             $newMaterial->save();
 
             return back()->with(['success' => 'El material se registró con éxito']);
@@ -51,7 +54,8 @@ class MaterialesController extends Controller
         }
         $validatedData = $newData->validate([
             'ud_medida' => 'required',
-            'costo_por_ud_medida' => 'required|numeric'
+            'cantidad' => 'required|numeric|min:1',
+            'costo_total' => 'required|numeric'
         ]);
 
         try {

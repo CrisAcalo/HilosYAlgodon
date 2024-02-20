@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <!-- Modal new Material -->
+    <!-- Modal new Producto -->
     <div class="modal fade modal-lg" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -94,7 +94,7 @@
 
                         <div class="form-floating mb-3">
                             <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror"
-                                name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre"
+                                name="nombre" value="{{ old('nombre') }}" autocomplete="nombre"
                                 placeholder="Almohada">
 
                             <label for="nombre">{{ __('Nombre') }}</label>
@@ -121,7 +121,7 @@
                             <div class="form-floating">
                                 <input disabled id="costo_unitario" type="text" min="0"
                                     class="form-control @error('costo_unitario') is-invalid @enderror" name="costo_unitario"
-                                    value="{{ old('costo_unitario') }}" required autocomplete="costo_unitario"
+                                    value="{{ old('costo_unitario') }}" autocomplete="costo_unitario"
                                     oninput="validarMontoInput(this)" placeholder="Insertar el costo">
                                 <label for="costo_unitario">Costo Unitario</label>
                             </div>
@@ -137,7 +137,7 @@
                         <div class="form-floating mb-3">
                             <input id="cantidad" type="number" min="0"
                                 class="form-control @error('cantidad') is-invalid @enderror" name="cantidad"
-                                value="{{ old('cantidad') }}" required autocomplete="cantidad"
+                                value="{{ old('cantidad') }}" autocomplete="cantidad"
                                 oninput="validarMontoInput(this)" placeholder="Insertar el costo">
                             <label for="cantidad">Cantidad</label>
 
@@ -152,7 +152,7 @@
                         <div class="form-floating mb-3">
                             <input id="horas_trabajo" type="number" min="0"
                                 class="form-control @error('horas_trabajo') is-invalid @enderror" name="horas_trabajo"
-                                value="{{ old('horas_trabajo') }}" required autocomplete="horas_trabajo"
+                                value="{{ old('horas_trabajo') }}" autocomplete="horas_trabajo"
                                 oninput="validarMontoInput(this)" placeholder="Insertar el costo">
                             <label for="horas_trabajo">Horas de trabajo</label>
 

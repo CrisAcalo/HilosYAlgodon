@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\AlphaSpace;
 
 class adminController extends Controller
 {
@@ -49,7 +50,7 @@ class adminController extends Controller
             abort(403,'Unauthorized action.');
         }
         $validatedData = $data->validate([
-            'name' => 'required|max:255',
+            'name' => ['required', 'max:255', new AlphaSpace],
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|min:8|confirmed'
         ]);
@@ -69,7 +70,7 @@ class adminController extends Controller
             abort(403,'Unauthorized action.');
         }
         $validatedData = $data->validate([
-            'name' => 'max:255',
+            'name' => ['required', 'max:255', new AlphaSpace],
             'email' => 'unique:users|max:255'
         ]);
 
@@ -82,7 +83,7 @@ class adminController extends Controller
                 $user->email = $data->email;
             }
             $user->save();
-            return redirect()->route('admin.users.show', encrypt($user))->with('success', 'El usuario se ha actualizado exitosamente');
+            return redirect()->route('admin.users.show', encrypt($user->id))->with('success', 'El usuario se ha actualizado exitosamente');
         } else {
             return back()->with('warning', 'No se han encontrado datos a o para actualizar');
         }
