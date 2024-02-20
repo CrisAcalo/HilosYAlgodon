@@ -81,7 +81,7 @@
                                                 <select name="ud_medida"
                                                     class="form-select @error('ud_medida') is-invalid @enderror"
                                                     id="ud_medida">
-                                                    <option selected >Elegir...</option>
+                                                    <option value = "">Elegir...</option>
                                                     <option @if ($material->ud_medida == 'kg') selected @endif value="kg">Kilogramo (kg) </option>
                                                     <option @if ($material->ud_medida == 'm2') selected @endif value="m2">Metro Cuadrado (m^2) </option>
                                                     <option @if (old('ud_medida') == 'unidad') selected @endif value="unidad">Unidad (unidad)</option>
