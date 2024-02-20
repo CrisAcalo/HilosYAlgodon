@@ -17,7 +17,7 @@ class CreateMaterialesPorProductoTable extends Migration
             $table->id();
             $table->unsignedBigInteger('producto_id');
             $table->unsignedBigInteger('material_id');
-            $table->bigInteger('cantidad');
+            $table->double('cantidad',8,3)->default('0')->nullable();
             $table->timestamps();
 
             $table->foreign('producto_id')

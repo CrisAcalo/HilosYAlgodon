@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
 </head>
 
 <body class="">
@@ -50,38 +50,47 @@
 
 
                     @if (Auth::user()->rolValidation(['Admin', 'Materiales']))
-                    <li class="nav-item list-group nav-link-item">
-                        <a href="{{ route('admin.materiales.') }}" class="nav-link text-white">
-                            <i class="bi bi-backpack3-fill"></i>
-                            Materiales
-                        </a>
-                    </li>
+                        <li class="nav-item list-group nav-link-item">
+                            <a href="{{ route('admin.materiales.') }}" class="nav-link text-white">
+                                <i class="bi bi-backpack3-fill"></i>
+                                Materiales
+                            </a>
+                        </li>
                     @endif
 
-                    
-                    @if (Auth::user()->rolValidation(['Admin']))
-                    <hr class="my-2">
-                    <p class="m-0">Usuarios</p>
-                    <hr class="my-2">
+                    @if (Auth::user()->rolValidation(['Admin', 'Productos']))
+                        <li class="nav-item list-group nav-link-item">
+                            <a href="{{ route('admin.productos.') }}" class="nav-link text-white">
+                                <i class="bi bi-archive"></i>
+                                Productos
+                            </a>
+                        </li>
+                    @endif
 
-                    <li class="nav-item list-group nav-link-item">
-                        <a href="{{ route('admin.users.index') }}" class="nav-link text-white">
-                            <i class="bi bi-people-fill me-2"></i>
-                            Usuarios
-                        </a>
-                    </li>
-                    <li class="nav-item list-group nav-link-item">
-                        <a href="{{ route('admin.roles.roles') }}" class="nav-link text-white">
-                            <i class="bi bi-person-lines-fill me-2"></i>Roles
-                        </a>
-                    </li>
+
+                    @if (Auth::user()->rolValidation(['Admin']))
+                        <hr class="my-2">
+                        <p class="m-0">Usuarios</p>
+                        <hr class="my-2">
+
+                        <li class="nav-item list-group nav-link-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link text-white">
+                                <i class="bi bi-people-fill me-2"></i>
+                                Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item list-group nav-link-item">
+                            <a href="{{ route('admin.roles.roles') }}" class="nav-link text-white">
+                                <i class="bi bi-person-lines-fill me-2"></i>Roles
+                            </a>
+                        </li>
                     @endif
 
                     @impersonating($guard = null)
-                    <li class="nav-item list-group btn btn-sm btn-primary p-0 mt-3">
-                        <a href="{{ route('admin.impersonate.leave') }}" class="nav-link text-white"><i
-                                class="bi bi-slash-circle me-2"></i>Salir Impersonate</a>
-                    </li>
+                        <li class="nav-item list-group btn btn-sm btn-primary p-0 mt-3">
+                            <a href="{{ route('admin.impersonate.leave') }}" class="nav-link text-white"><i
+                                    class="bi bi-slash-circle me-2"></i>Salir Impersonate</a>
+                        </li>
                     @endImpersonating
                 </ul>
                 <hr>
@@ -100,7 +109,8 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
@@ -122,13 +132,13 @@
             <div class="container-fluid pt-3">
 
                 @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 @endif
 
                 @include('partials.alerts')
@@ -140,12 +150,17 @@
     </div>
 
 </body>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-    </script>
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{{ url('js/style.js') }}"></script>
+<script src="//cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
+<script>
+    let tableProductos = new DataTable('#productos');
+    let tableMateriales = new DataTable('#materiales');
+    let tableAsignarMateriales = new DataTable('#asignarMateriales');
+</script>
 
 </html>
