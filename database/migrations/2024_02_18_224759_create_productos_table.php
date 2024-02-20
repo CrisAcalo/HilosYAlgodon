@@ -17,7 +17,7 @@ class CreateProductosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->double('costo_unitario',8,2);
+            $table->double('costo_unitario',8,2)->default('0')->nullable();
             $table->bigInteger('cantidad');
             $table->bigInteger('horas_trabajo');
             $table->timestamps();

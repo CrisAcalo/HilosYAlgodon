@@ -58,6 +58,15 @@
                         </li>
                     @endif
 
+                    @if (Auth::user()->rolValidation(['Admin', 'Productos']))
+                        <li class="nav-item list-group nav-link-item">
+                            <a href="{{ route('admin.productos.') }}" class="nav-link text-white">
+                                <i class="bi bi-archive"></i>
+                                Productos
+                            </a>
+                        </li>
+                    @endif
+
 
                     @if (Auth::user()->rolValidation(['Admin']))
                         <hr class="my-2">

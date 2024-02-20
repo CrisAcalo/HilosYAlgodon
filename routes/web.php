@@ -41,6 +41,16 @@ Route::namespace('Admin')->prefix('admin')->middleware(
             Route::delete('/destroy/{id}', 'MaterialesController@destroy')->name('destroy');
         });
 
+        Route::namespace('Productos')->prefix('productos')->name('productos.')->group(function () {
+            Route::get('/', 'ProductosController@index');
+            Route::post('/create', 'ProductosController@create')->name('create');
+            Route::get('/details/{id}', 'ProductosController@details')->name('details');
+            Route::put('/edit/{id}', 'ProductosController@edit')->name('edit');
+            Route::put('/editAsignacionMateriales/{id}', 'ProductosController@editAsignacionMateriales')->name('editAsignacionMateriales');
+            Route::put('/editCantidadMateriales/{id}', 'ProductosController@editCantidadMateriales')->name('editCantidadMateriales');
+            Route::delete('/destroy/{id}', 'ProductosController@destroy')->name('destroy');
+        });
+
         Route::prefix('roles')->name('roles.')->group(function () {
             Route::get('/', 'RolesController@roles')->name('roles');
             Route::post('/newRole', 'RolesController@newRole')->name('newRole');
