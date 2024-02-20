@@ -7,7 +7,7 @@
             <button type="button" class="btn btn-primary my-3 float-end" data-bs-toggle="modal" data-bs-target="#newUserModal">
                 <i class="bi bi-plus-circle-dotted" style="font-size: 1.5rem;"></i>
             </button>
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="materiales">
                 <thead>
                     <tr class="bg-primary text-light">
                         <th scope="col">Id</th>

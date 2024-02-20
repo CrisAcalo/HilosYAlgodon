@@ -142,8 +142,8 @@
 
     </div>
 
-    <!-- MODAL PARA AÑADIR REQUISITOS -->
-    <div class="modal fade modal-sm" id="newRequirementsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <!-- MODAL PARA AÑADIR MATERIALES -->
+    <div class="modal fade modal-md" id="newRequirementsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -157,7 +157,7 @@
                         @csrf
                         @method('PUT')
                         <div class="col mx-auto">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered w-100" id="asignarMateriales">
                                 <thead>
                                     <tr class="bg-primary text-light">
                                         <th>Nombre</th>
