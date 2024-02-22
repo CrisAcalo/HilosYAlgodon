@@ -51,6 +51,10 @@ Route::namespace('Admin')->prefix('admin')->middleware(
             Route::delete('/destroy/{id}', 'ProductosController@destroy')->name('destroy');
         });
 
+        Route::namespace('Configuraciones')->prefix('configuraciones')->name('configuraciones.')->group(function () {
+            Route::put('/', 'ConfiguracionesController@updateSueldoBase')->name('updateSueldoBase');
+        });
+
         Route::prefix('roles')->name('roles.')->group(function () {
             Route::get('/', 'RolesController@roles')->name('roles');
             Route::post('/newRole', 'RolesController@newRole')->name('newRole');

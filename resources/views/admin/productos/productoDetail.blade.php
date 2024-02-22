@@ -41,7 +41,7 @@
                                 @enderror
                             </div>
 
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="form-floating">
                                     <input disabled id="costo_unitario" type="text" min="0"
                                         class="form-control @error('costo_unitario') is-invalid @enderror"
@@ -57,7 +57,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                
                             </div>
+                            <label class=" mb-3 text-secondary">Valor por hora de trabajo: {{round($configuraciones->sueldo_base/30/8,2)}}</label>
 
                             <div class="form-floating mb-3">
                                 <input id="cantidad" type="number" min="0"
@@ -123,11 +125,13 @@
                             <div class="input-group">
                                 <span class="input-group-text" for="asignacion_{{ $asignacion->id }}">
                                     {{ $material->nombre }} </span>
-                                <input name="{{ $asignacion->id }}" min="0" step="0.001"
-                                    type="number" id="asignacion_{{ $asignacion->id }}" class="form-control"
-                                    oninput="validarMontoInput(this)" value="{{$asignacion->cantidad}}" required>
+                                <input name="{{ $asignacion->id }}" min="0" step="0.001" type="number"
+                                    id="asignacion_{{ $asignacion->id }}" class="form-control"
+                                    oninput="validarMontoInput(this)" value="{{ $asignacion->cantidad }}" required>
                                 <span class="input-group-text" for="asignacion_{{ $asignacion->id }}">
                                     {{ $material->ud_medida }} </span>
+                                <span class="input-group-text" for="asignacion_{{ $asignacion->id }}">
+                                    {{ $material->costo_ud_medida }}$ c/u </span>
                             </div>
                         @endforeach
                     </ul>

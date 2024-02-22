@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Controller;
+use App\Model\Configuraciones;
 use App\Model\Role;
 use Illuminate\Http\Request;
 use App\User;
@@ -30,6 +31,11 @@ class adminController extends Controller
 
     public function show($id)
     {
+        if(!Configuraciones::where('id',1)->first()){
+            $newConfiguracion = new Configuraciones();
+            $newConfiguracion->save();
+        }
+        
         if (!Auth::user()->rolValidation(['Admin'])){
             abort(403,'Unauthorized action.');
         }
@@ -37,8 +43,8 @@ class adminController extends Controller
         if ($user) {
             $roles = Role::all();
             $assignatedRoles = Role::whereJsonContains('assignation', strval($user->id))->get();
-
-            return view('admin.users.profile', compact('user', 'roles', 'assignatedRoles'));
+            $configuraciones = Configuraciones::where('id',1)->first();
+            return view('admin.users.profile', compact('user', 'roles', 'assignatedRoles','configuraciones'));
         } else {
             abort(404);
         }

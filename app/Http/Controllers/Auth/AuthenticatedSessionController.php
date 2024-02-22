@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Model\Configuraciones;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,6 +18,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        if(!Configuraciones::where('id',1)->first()){
+            $newConfiguracion = new Configuraciones();
+            $newConfiguracion->save();
+        }
         return view('auth.login');
     }
 

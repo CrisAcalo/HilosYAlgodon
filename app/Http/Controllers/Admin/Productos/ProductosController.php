@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Model\Productos;
 use App\Model\MaterialesPorProducto;
+use App\Model\Configuraciones;
 
 class ProductosController extends Controller
 {
     public function index()
     {
         $productos = Productos::all();
-        return view('admin.productos.ProductosManager', compact('productos'));
+        $configuraciones = Configuraciones::where('id', 1)->first();
+        return view('admin.productos.ProductosManager', compact('productos','configuraciones'));
     }
 
     public function create(Request $newProductoData)
@@ -36,6 +38,7 @@ class ProductosController extends Controller
             $newProducto->cantidad = $newProductoData->cantidad;
             $newProducto->horas_trabajo = $newProductoData->horas_trabajo;
             $newProducto->save();
+            $this->calculateCost($newProducto->id);
 
             return back()->with(['success' => 'El Producto se registró con éxito']);
         } catch (Exception $e) {
@@ -49,7 +52,8 @@ class ProductosController extends Controller
         $materiales = Materiales::all();
         $idsMaterialesAsignados = MaterialesPorProducto::where('producto_id', decrypt($productID))->pluck('material_id')->toArray();
         $materialesAsignados = MaterialesPorProducto::where('producto_id', decrypt($productID))->get();
-        return view('admin.productos.productoDetail', compact('producto', 'materiales', 'idsMaterialesAsignados', 'materialesAsignados'));
+        $configuraciones = Configuraciones::where('id', 1)->first();
+        return view('admin.productos.productoDetail', compact('producto', 'materiales', 'idsMaterialesAsignados', 'materialesAsignados','configuraciones'));
     }
 
     public function editAsignacionMateriales(Request $newMateriales, $productID)
@@ -57,10 +61,10 @@ class ProductosController extends Controller
         if ($newMateriales && $productID) {
             try {
                 $productID = decrypt($productID);
-                $materialesToAssign = $newMateriales->except(['_token', '_method','asignarMateriales_length']);
+                $materialesToAssign = $newMateriales->except(['_token', '_method', 'asignarMateriales_length']);
                 $nuevosMaterialesIds = [];
                 $idsMaterialesAsignados = MaterialesPorProducto::where('producto_id', $productID)->pluck('material_id')->toArray();
-                
+
                 foreach ($materialesToAssign as $checkbox => $value) {
                     $parts = explode('_', $value);
                     $materialId = $parts[1];
@@ -157,7 +161,12 @@ class ProductosController extends Controller
     }
     public function calculateCost($productID)
     {
-        $valor_por_hora = 3;
+        if (!Configuraciones::where('id', 1)->first()) {
+            $newConfiguracion = new Configuraciones();
+            $newConfiguracion->save();
+        }
+        $configuracion = Configuraciones::where('id', 1)->first();
+        $valor_por_hora = $configuracion->sueldo_base / 30 / 8;
         $total = 0;
         $product = Productos::where('id', $productID)->first();
 

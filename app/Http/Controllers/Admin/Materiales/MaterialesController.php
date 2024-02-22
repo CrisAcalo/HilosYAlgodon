@@ -7,6 +7,7 @@ use App\Model\Materiales;
 use App\Model\MaterialesPorProducto;
 use App\Model\Productos;
 use Illuminate\Http\Request;
+use App\Model\Configuraciones;
 use Exception;
 
 class MaterialesController extends Controller
@@ -22,13 +23,12 @@ class MaterialesController extends Controller
         $validatedData = $newMaterialData->validate([
             'nombre' => 'required|unique:materiales|max:255',
             'ud_medida' => 'required',
-            'cantidad' => 'required|numeric|min:1',
-            'costo_total' => 'required|numeric'
+            'cantidad' => 'required|numeric|min:0.01',
+            'costo_total' => 'required|numeric|min:0.01'
         ]);
 
         $newMaterial = new Materiales();
         try {
-
             $newMaterial->nombre = $newMaterialData->nombre;
             $newMaterial->ud_medida = $newMaterialData->ud_medida;
             $newMaterial->cantidad = $newMaterialData->cantidad;
@@ -54,14 +54,16 @@ class MaterialesController extends Controller
         }
         $validatedData = $newData->validate([
             'ud_medida' => 'required',
-            'cantidad' => 'required|numeric|min:1',
-            'costo_total' => 'required|numeric'
+            'cantidad' => 'required|numeric|min:0.01',
+            'costo_total' => 'required|numeric|min:0.01'
         ]);
 
         try {
             $material->nombre = $newData->nombre;
             $material->ud_medida = $newData->ud_medida;
-            $material->costo_ud_medida = $newData->costo_por_ud_medida;
+            $material->cantidad = $newData->cantidad;
+            $material->costo_total = $newData->costo_total;
+            $material->costo_ud_medida = $newData->costo_total / $newData->cantidad;
             $material->save();
 
             $idsProductosAsignados = MaterialesPorProducto::where('material_id', decrypt($materialID))->pluck('producto_id')->unique()->toArray();
@@ -95,7 +97,12 @@ class MaterialesController extends Controller
 
     public function calculateCost($productID)
     {
-        $valor_por_hora = 3;
+        if(!Configuraciones::where('id',1)->first()){
+            $newConfiguracion = new Configuraciones();
+            $newConfiguracion->save();
+        }
+        $configuracion = Configuraciones::where('id',1)->first();
+        $valor_por_hora = $configuracion->sueldo_base / 30 / 8;
         $total = 0;
         $product = Productos::where('id', $productID)->first();
 
