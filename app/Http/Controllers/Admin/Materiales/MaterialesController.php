@@ -23,7 +23,7 @@ class MaterialesController extends Controller
         $validatedData = $newMaterialData->validate([
             'nombre' => 'required|unique:materiales|max:255',
             'ud_medida' => 'required',
-            'cantidad' => 'required|numeric|min:1',
+            'cantidad' => 'required|numeric|min:0.01',
             'costo_total' => 'required|numeric|min:0.01'
         ]);
 
@@ -54,7 +54,7 @@ class MaterialesController extends Controller
         }
         $validatedData = $newData->validate([
             'ud_medida' => 'required',
-            'cantidad' => 'required|numeric|min:1',
+            'cantidad' => 'required|numeric|min:0.01',
             'costo_total' => 'required|numeric|min:0.01'
         ]);
 
