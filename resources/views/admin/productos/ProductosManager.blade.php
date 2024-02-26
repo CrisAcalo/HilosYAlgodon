@@ -108,7 +108,7 @@
 
                         <div class="form-floating mb-3">
                             <textarea class="form-control @error('descripcion') is-invalid @enderror" placeholder="Leave a comment here"
-                                id="descripcion" name="descripcion"></textarea>
+                                id="descripcion" name="descripcion"  value="{{ old('descripcion') }}"></textarea>
                             <label for="descripcion">Descripcion</label>
                             @error('descripcion')
                                 <span class="invalid-feedback" role="alert">

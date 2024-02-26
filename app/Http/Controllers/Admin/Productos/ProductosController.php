@@ -26,7 +26,7 @@ class ProductosController extends Controller
             'descripcion' => ['required', 'string'],
             'costo_unitario' => ['numeric'],
             'cantidad' => ['required', 'integer', 'min:1'],
-            'horas_trabajo' => ['required', 'numeric', 'min:0'],
+            'horas_trabajo' => ['required', 'numeric', 'min:1'],
         ]);
 
         $newProducto = new Productos();
